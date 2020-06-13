@@ -1,19 +1,13 @@
 import locale
 from tkinter import *
 
-from PyQt5.QtWidgets import QApplication
-
 
 class Controls:
     def __init__(self):
-        app = QApplication(sys.argv)
-        screen = app.screens()[0]
-        dpi = screen.physicalDotsPerInch()
-        app.quit()
         locale.setlocale(locale.LC_ALL, 'en_US.utf8')
         self.window = Tk()
         window_size = str(round(self.window.winfo_screenwidth() * 0.13)) + 'x' + str(
-            round(self.window.winfo_screenheight() * (0.62 if dpi > 106 else 0.48))) + '+' + str(
+            round(self.window.winfo_screenheight() * 0.48)) + '+' + str(
             round(self.window.winfo_screenwidth() * 0.75)) + '+' + str(
             round(self.window.winfo_screenheight() * 0.2))
         self.window.geometry(window_size)
