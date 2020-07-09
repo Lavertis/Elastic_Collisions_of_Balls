@@ -1,5 +1,4 @@
 import pygame
-
 from vector import *
 
 
