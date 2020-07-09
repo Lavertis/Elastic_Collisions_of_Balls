@@ -15,6 +15,8 @@ class World(Controls):
         self.surface_size = [self.surface_width, self.surface_height]
         self.screen = pygame.display.set_mode(self.surface_size, pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
+        self.fps_font = pygame.font.SysFont('Comic Sans MS', 10)
+        self.fps = 60
         self.bounce = True
         self.balls = []
         self.number = 30

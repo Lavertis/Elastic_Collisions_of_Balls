@@ -25,5 +25,12 @@ def move_and_draw_balls(world):
     for ball in world.balls:
         ball.move()
         ball.display()
-    world.clock.tick(120)
+    world.fps = world.clock.get_fps()
+    display_fps(world)
+    world.clock.tick(60)
     pygame.display.flip()
+
+
+def display_fps(world):
+    text_surface = world.fps_font.render('FPS: ' + str(round(world.fps)), True, (120, 120, 120))
+    world.screen.blit(text_surface, (2, 0))
