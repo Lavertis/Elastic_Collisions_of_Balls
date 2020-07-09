@@ -1,16 +1,12 @@
-import os
 from random import choice, random, uniform
-
 from ball import *
 from controls import *
 
 
 class World(Controls):
     def __init__(self):
-        if os.name == 'nt':
-            import ctypes
-            ctypes.windll.shcore.SetProcessDpiAwareness(True)
         super().__init__()
+        # PyGame window
         screen_height = self.window.winfo_screenheight()
         self.surface_height = round(0.75 * screen_height)
         self.surface_width = self.surface_height
@@ -28,7 +24,8 @@ class World(Controls):
         self.colour = 'blue'
         self.colours = ['red', 'green', 'blue', 'orange', 'yellow', 'purple']
         self.create_balls()
-        # self.initialize_balls()
+        self.initialize_balls()
+        # Controls window
         self.number_scale.config(command=self.update_balls_number)
         self.number_scale.set(self.number)
         self.radius_scale.config(command=self.update_balls_radius)
@@ -63,31 +60,6 @@ class World(Controls):
                         ball_1.collision_simple(ball_2)
                         ball_1.move()
                         ball_2.move()
-
-    def check_for_exit_and_window_resize(self):
-        for et in pygame.event.get():
-            if et.type == pygame.QUIT:
-                self.bounce = False
-            elif et.type == pygame.VIDEORESIZE:
-                self.surface_size = et.size
-                self.surface_width = et.w
-                self.surface_height = et.h
-                self.screen = pygame.display.set_mode(self.surface_size, pygame.RESIZABLE)
-
-    def check_for_collision(self):
-        for ball_1 in self.balls:
-            ball_1.check_wall_collision(self.surface_width, self.surface_height)
-            for ball_2 in self.balls:
-                if ball_1.collides(ball_2):
-                    ball_1.collision_simple(ball_2)
-
-    def move_and_draw_balls(self):
-        self.screen.fill((0, 0, 0))
-        for ball in self.balls:
-            ball.move()
-            ball.display()
-        self.clock.tick(120)
-        pygame.display.flip()
 
     def update_balls_number(self, value):
         if int(value) > self.balls.__len__():
